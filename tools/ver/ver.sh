@@ -10,25 +10,25 @@ if [ ! -f info ]; then
   printf "Initial version: "; read initial_version 
   echo $initial_version > info ; echo "Done!"
 else
-  old_version=$(head -n 1 info); echo $old_version
+  old_version=$(head -n 1 info); VERSION=${old_version}; 
   # Split AU_NAME into prefix and version number
-  IFS='-' read -ra PREFIX_VER <<< "$old_version"
-  PREFIX=${PREFIX_VER[0]}
-  VERSION=${PREFIX_VER[1]}
+  if [[ $version == *"-"* ]]; then 
+    IFS='-' read -ra PREFIX_VER <<< "$old_version"
+    PREFIX=${PREFIX_VER[0]}
+    VERSION=${PREFIX_VER[1]}; fi
   # Split version number into major, minor, micro, and build
   IFS='.' read -ra VER <<< "$VERSION"
   major=${VER[0]}; minor=${VER[1]}; micro=${VER[2]}; build=${VER[3]}
-  echo "Prefix: $PREFIX"
-
-  if [ $# -eq 0 ]; then ((build++));
+  if [ $# -eq 0 ]; then :;
   elif [ $1 == "major" ]; then ((major++)); minor=0; micro=0; build=0;
   elif [ $1 == "minor" ]; then ((minor++)); micro=0; build=0;
   elif [ $1 == "micro" ]; then ((micro++)); build=0;
   elif [ $1 == "build" ]; then ((build++)); 
   else printf "\033[0;31mERR:\033[0m Unknown command used \n"; exit 1 ; fi
   prefix_sign="-"
-  full_version=${PREFIX}${prefix_sign}${major}.${minor}.${micro}.${build} ;
+  if [[ $version == *"-"* ]]; then 
+    full_version=${PREFIX}${prefix_sign}${major}.${minor}.${micro}.${build};
+  else full_version=${major}.${minor}.${micro}.${build}; fi
   echo "Version: $full_version"
   echo $full_version > info 
 fi
-
