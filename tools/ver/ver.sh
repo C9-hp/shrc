@@ -1,7 +1,10 @@
 #!/bin/bash
 
 # If this is the root of project:
-while [ 0 = 0 ]; do if [ -d "./.git" ]; then break; fi; cd ..; done
+while [ 0 = 0 ]; do 
+  if [ -d "./.git" ]; then break; 
+  elif  [ $(pwd) == "/" ];then printf "\033[0;31mNo git repository found! \n"; exit 1; 
+    fi; cd ..; done
 ###########################################################
 [ -d .dev-info ] || mkdir -p .dev-info
 cd .dev-info
