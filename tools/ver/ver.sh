@@ -1,5 +1,15 @@
 #!/bin/bash
-
+newver() {
+  shorten_number () {
+    ls
+  }
+  if [ ! -z ${0} ]; then
+    full_version=${major}.${minor}.${micro}.${build}; 
+  else 
+    full_version=${PREFIX}${prefix_sign}${major}.${minor}.${micro}.${build}; 
+  fi
+  echo $full_version
+}
 # If this is the root of project:
 while [ 0 = 0 ]; do 
   if [ -d "./.git" ]; then break; 
@@ -28,10 +38,12 @@ else
   elif [ $1 == "micro" ]; then ((micro++)); build=0;
   elif [ $1 == "build" ]; then ((build++)); 
   else printf "\033[0;31mERR:\033[0m Unknown command used \n"; exit 1 ; fi
+  full_version=$(newver) 
   prefix_sign="-"
-  if [[ $version == *"-"* ]]; then 
-    full_version=${PREFIX}${prefix_sign}${major}.${minor}.${micro}.${build};
-  else full_version=${major}.${minor}.${micro}.${build}; fi
+  # if [[ $version == *"-"* ]]; then 
+    # full_version=${PREFIX}${prefix_sign}${major}.${minor}.${micro}.${build};
+  # else full_version=${major}.${minor}.${micro}.${build}; fi
   echo "Version: $full_version"
   echo $full_version > info 
+  git add info
 fi
