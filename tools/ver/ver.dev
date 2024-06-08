@@ -12,12 +12,21 @@ newver() {
 }
 # If this is the root of project:
 while [ 0 = 0 ]; do 
-  if [ -d "./.git" ] || [ -d "node_modules" ] || [ -f "package.json" ] ; then break; 
-  elif  [ $(pwd) == "/" ];then printf "\033[0;31mCould not find project\'s root directory!\n"; exit 1; 
+  if [ -f "package.json" ]; then json=True; break; 
+  elif [ -d ".git" ]; then break; 
+  elif  [ $(pwd) == "/" ];then printf "\033[0;31mCould not find the package.json file!\n"; exit 1; 
   fi; cd .. ; done
 ###########################################################
-[ -d .dev-info ] || mkdir -p .dev-info
-cd .dev-info
+if [ $json ]; then 
+  
+else
+
+fi
+
+pkgJson=$( cat package.json )
+
+
+echo $pkgJson
 
 if [ ! -f info ]; then 
   printf "whats the initial version of your repo? (prefix_major.minor.micro.build) \n"
