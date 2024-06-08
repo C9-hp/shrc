@@ -5,4 +5,4 @@ echo "entered $(pwd)" ;
 # SYNCING REPO 
 git add -A; git commit -am "obsidin synced" 1> /dev/null ; echo commited successfully.
 git pull 1> /dev/null; echo Local branch is up to date now. 
-git push 1> /dev/null; echo Remote branch updated!
+git push
