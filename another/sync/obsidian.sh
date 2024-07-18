@@ -36,7 +36,7 @@ printf "  ${Cyan_}Done ${BrightGreen_}✔${White_} \n"
 # Checking if repository is clean or not...
 status=$(git status)
 if [[ $status == *"nothing to commit, working tree clean"* ]]; then
-  printf "No changes to commit! \n"; exit 0; fi;
+  printf "   No changes to commit! \n"; exit 0; fi;
 
 
 # Commiting changes and new version ...
