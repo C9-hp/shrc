@@ -47,7 +47,7 @@ printf "  ${Cyan_}Done ${BrightGreen_}✔${White_} \n";
 
 # Pushing repo...
 printf "   ${Blue_}Pushing data...${White}";
-git push 2>&1 > /dev/null; 
+git push 1> /dev/null; 
 printf "  ${Cyan_}Done ${BrightGreen_}✔${White_} \n";
 printf "   ${BrightGreen_}Local branch is up to date now \
   ${White_} \n";
