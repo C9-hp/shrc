@@ -30,7 +30,7 @@ printf "   Successfully entered \"${Yellow_}$(pwd)${White_}\"\n" ;
 
 # PULLING REPO TO MAKE SURE IT'S UP TO DATE...
 printf "   ${Blue_}Pulling data...${White}";
-# git pull 1> /dev/null;
+git pull 1> /dev/null;
 printf "  ${Cyan_}Done ${BrightGreen_}✔${White_} \n"
 
 # Checking if repository is clean or not...
