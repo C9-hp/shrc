@@ -30,17 +30,23 @@ printf "   Successfully entered \"${Yellow_}$(pwd)${White_}\"\n" ;
 
 # PULLING REPO TO MAKE SURE IT'S UP TO DATE...
 printf "   ${Blue_}Pulling data...${White}";
-git pull 1> /dev/null;
-printf "  ${Cyan_}Done ${BrightGreen_}✔${White_} \n"
-
+if git pull &> /dev/null; then 
+  printf "  ${Cyan_}Done ${BrightGreen_}✔${White_} \n" ;
+else 
+  printf "  ${Red_}Failed! ${White_} \n" ;
+  exit 2;
+fi
 # Checking if repository is clean or not...
+printf "   ${Blue_}Checking for any changes...${White_}"
 status=$(git status)
 if [[ $status == *"nothing to commit, working tree clean"* ]]; then
-  printf "   No changes to commit! \n"; exit 0; fi;
+  printf "\n   No changes to commit! \n"; exit 0; 
+fi
+printf "  ${Cyan_}Done ${BrightGreen_}✔${White_} \n";
 
 
 # Commiting changes and new version ...
-printf "   ${Blue_}Commiting changes...${White}"
+printf "   ${Blue_}Commiting changes...${White_}"
 ~/scripts/shrc/tools/ver/ver.sh build 1> /dev/null
 git add -A; git commit -am "obsidin synced" 1> /dev/null ; 
 printf "  ${Cyan_}Done ${BrightGreen_}✔${White_} \n"; 
