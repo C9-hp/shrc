@@ -1,9 +1,8 @@
 #!/bin/bash
-
 newver() {
   shorten_number () {
     ls
-  } 
+  }
   if [ ! -z ${0} ]; then
     full_version=${major}.${minor}.${micro}.${build}; 
   else 
@@ -13,26 +12,16 @@ newver() {
 }
 # If this is the root of project:
 while [ 0 = 0 ]; do 
-  if [ -f "package.json" ]; then json=True; break; 
-  elif [ -d ".git" ]; then break; 
-  elif  [ $(pwd) == "/" ];then printf "\033[0;31mCould not find the package.json file!\n"; exit 1; 
+  if [ -d "./.git" ] || [ -d "node_modules" ] || [ -f "package.json" ] ; then break; 
+  elif  [ $(pwd) == "/" ];then printf "\033[0;31mCould not find project\'s root directory!\n"; exit 1; 
   fi; cd .. ; done
 ###########################################################
-if [ $json ]; then 
-  jq '.version = "v-0.0.0.0"' package.json > tmp.json &&\
-  mv tmp.json package.json
-fi
+[ -d .dev-info ] || mkdir -p .dev-info
+cd .dev-info
 
-pkgJson=$( cat package.json )
-
-echo $pkgJson
-
-if [ ! -f info ] && [ ! -e package.json] ; then 
+if [ ! -f info ]; then 
   printf "whats the initial version of your repo? (prefix_major.minor.micro.build) \n"
   printf "Initial version: "; read initial_version 
-  if [ $initial_veraion == "" ]; then 
-    initial_veraion="0.0.0.0"
-  fi
   echo $initial_version > info ; echo "Done!"
 else
   old_version=$(head -n 1 info); VERSION=${old_version}; 
@@ -40,8 +29,7 @@ else
   if [[ $version == *"-"* ]]; then 
     IFS='-' read -ra PREFIX_VER <<< "$old_version"
     PREFIX=${PREFIX_VER[0]}
-    VERSION=${PREFIX_VER[1]}; 
-  fi
+    VERSION=${PREFIX_VER[1]}; fi
   # Split version number into major, minor, micro, and build
   IFS='.' read -ra VER <<< "$VERSION"
   major=${VER[0]}; minor=${VER[1]}; micro=${VER[2]}; build=${VER[3]}
@@ -50,11 +38,9 @@ else
   elif [ $1 == "minor" ]; then ((minor++)); micro=0; build=0;
   elif [ $1 == "micro" ]; then ((micro++)); build=0;
   elif [ $1 == "build" ]; then ((build++)); 
-  else printf "\033[0;31mERR:\033[0m Unknown command used \n"; exit 1 ; 
-fi 
-
-full_version=$(newver) 
-prefix_sign="-"
+  else printf "\033[0;31mERR:\033[0m Unknown command used \n"; exit 1 ; fi
+  full_version=$(newver) 
+  prefix_sign="-"
   # if [[ $version == *"-"* ]]; then 
     # full_version=${PREFIX}${prefix_sign}${major}.${minor}.${micro}.${build};
   # else full_version=${major}.${minor}.${micro}.${build}; fi
