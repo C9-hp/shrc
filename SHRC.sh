@@ -4,7 +4,7 @@
 
 source ~/scripts/shrc/TOOLS.sh
 source ~/scripts/shrc/another/another.sh
-source ~/scripts/shrc/shortcuts/shortcuts.sh
+source ~/scripts/shrc/shortcuts.sh
 
 alias menu='~/scripts/shrc/menu.sh'
 alias ls='ls --color -vh --group-directories-first'
