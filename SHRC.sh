@@ -25,4 +25,4 @@ alias vi='vim'
 # cwd=$(pwd); if [[ "$cwd" == "/home/c9" ]]; then cd Main; fi 
 
 # TERMUX
-
+if [ -d "/data/data/com.termux" ]; then source ~/scripts/shrc/termux-shrc.sh; fi
