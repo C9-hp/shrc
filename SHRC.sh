@@ -11,5 +11,8 @@ alias ls='ls --color -vh --group-directories-first'
 alias vi='vim'
 
 # TEMPORARY 
-cwd=$(pwd); if [[ "$cwd" == "/home/c9" ]]; then cd Main; fi 
+cwd=$(pwd); if [[ "$cwd" == "/home/c9" ]]; then cd Main; fi
 
+# TERMUX
+
+source ~/scripts/shrc/termux-shrc.sh 
