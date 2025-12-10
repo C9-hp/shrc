@@ -1,7 +1,6 @@
 #!/bin/bash
 
 # Saving some color variables...
-
 Black_="\033[30m";        BrightBlack_="\033[90m"
 Red_="\033[31m";          BrightRed_="\033[91m"
 Green_="\033[32m";        BrightGreen_="\033[92m"
@@ -12,7 +11,7 @@ Cyan_="\033[36m";         BrightCyan_="\033[96m"
 White_="\033[37m";        BrightWhite_="\033[97m"
 Err_="\033[30;41m";       WHITE_="\033[37;40m";
 
-# Sourc SHRC to use my projects commands: 
+# Source SHRC to use my projects commands: 
 source ~/scripts/shrc/SHRC.sh
 
 # Check if its my phone or pc, check for direcroey
